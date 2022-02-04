@@ -1,0 +1,19 @@
+local override = script.Parent;
+local make = require(script.Parent.Parent);
+local basic = require(make.basic);
+
+local prototype = ({});
+
+--//////////////////////////////////////////
+-- PROTO : BEGIN
+--//////////////////////////////////////////
+
+function prototype.start(self)
+	--	NONE
+end
+
+--//////////////////////////////////////////
+-- PROTO : END
+--//////////////////////////////////////////
+
+return (prototype)
