@@ -6,7 +6,7 @@ export type class<T> = {
 	Connect : (T) -> (SignalConnection)
 }
 
-local Signal = {}
+local Signal = ({});
 
 Signal.__index = Signal
 
