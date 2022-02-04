@@ -1,10 +1,10 @@
 local signal = require(script.signal)
 
 return {
-	new = script.new,
-	wrap = script.wrap,
-	types = script.types,
-	basic = script.basic,
+	new = (script.new),
+	wrap = (script.wrap),
+	types = (script.types),
+	basic = (script.basic),
 	
 	new_property = function<T>(default_value : T)
 		local self = ({
