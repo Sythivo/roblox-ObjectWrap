@@ -1,0 +1,2 @@
+- name: Discord Webhook Action
+  uses: tsickert/discord-webhook@v4.0.0
