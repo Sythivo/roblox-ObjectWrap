@@ -8,6 +8,6 @@ return function(object : Instance | {Instance})
 		local object = unpack(object);
 		if (typeof(object) == "Instance") then
 			return basic.echo(object);
-		end
-	end
+		end;
+	end;
 end
