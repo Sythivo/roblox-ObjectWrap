@@ -1,3 +1,3 @@
 # roblox-ObjectWrap
 Roblox Module
-...soon
+...public soon
