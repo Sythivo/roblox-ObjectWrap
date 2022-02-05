@@ -57,7 +57,7 @@ function types.pairs_extract(fixtures : {() -> boolean}) : (array, ...any) -> ((
 				for _, action in next, access do
 					table.insert(values, action(v) or ("nil"));
 				end
-
+				
 				coroutine.yield(index, v, unpack(values))
 			end
 			
@@ -67,7 +67,9 @@ function types.pairs_extract(fixtures : {() -> boolean}) : (array, ...any) -> ((
 
 		local function iterator()
 			if (coroutine.status(thread) ~= "dead") then
-				return coroutine.resume(thread);
+				local values = {coroutine.resume(thread)};
+				table.remove(values, 1);
+				return unpack(values);
 			else
 				return;
 			end
