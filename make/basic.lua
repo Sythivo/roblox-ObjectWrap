@@ -49,9 +49,9 @@ basic.meta.__index = (function(self, access)
 		elseif (type(retrive) == "function") then
 			local calling = retrive;
 			retrive = (function(...)
-				local params = table.pack(...);
+				local params = ({...});
 				for i, param in t.pairs_extract { t.is_wrapped } (params) do
-					params[i] = (rawget(param, basic.access_point));
+					params[i] = (basic.get(param));
 				end
 				
 				local returned = table.pack(calling(unpack(params)));
@@ -84,23 +84,13 @@ basic.meta.__newindex = (function(self, access, value)
 	end
 end);
 
-function clone(table)
-	local copy = ({});
-	for k, v in pairs(table) do
-		if type(v) == "table" then
-			v = clone(v)
-		end
-		copy[k] = v
-	end
-	return (copy);
-end
 
-function merge(...)
+function merge_memory(...)
 	local params = ({...});
 	local merged = (params[1]);
-	
+
 	table.remove(params, 1);
-	
+
 	for _, table in pairs(params) do
 		for i, v in pairs(table) do
 			merged[i] = v;
@@ -108,6 +98,17 @@ function merge(...)
 	end
 	return (merged);
 end
+
+function merge(...)
+	local merged = ({});
+	for _, table in pairs({...}) do
+		for i, v in pairs(table) do
+			merged[i] = v;
+		end
+	end
+	return (merged);
+end
+
 function merge_extract(value, skip_till, ...)
 	local merged = ({});
 	local extracted = ({});
@@ -140,7 +141,7 @@ function basic.echo(...)
 				local extracted = nil;
 				local inheritted = ({});
 
-				c_proto = merge(c_proto, require(override:WaitForChild(".default")));
+				c_proto = merge_memory(c_proto, require(override:WaitForChild(".default")));
 				
 				local add_proto = function(cmake)
 					c_proto, extracted = merge_extract("start", 2, c_proto, cmake);
@@ -180,7 +181,7 @@ function basic.echo(...)
 				});
 				
 				local meta = getmetatable(self);
-				setmetatable(object, merge(o_meta, basic.meta, {
+				setmetatable(object, merge_memory(o_meta, basic.meta, {
 					__tostring = function()
 						return tostring(v);
 					end;
@@ -191,7 +192,7 @@ function basic.echo(...)
 				meta.__newindex = (object);
 				meta.__tostring = (o_meta.__tostring);
 
-				rawset(object, basic.override_point, (clone(c_proto)))
+				rawset(object, basic.override_point, (merge(c_proto)))
 				rawset(object, basic.access_point, v);
 
 				cache_saves[v] = (self);
