@@ -15,8 +15,8 @@ function prototype.start(self)
 	
 	self.Touched:Connect(function(Hit : BasePart)
 		local Player : Player? = nil;
-		
-		for i, player : Player in Players:GetPlayers() do
+
+		for i, player : Player in pairs(Players:GetPlayers()) do
 			if (player.Character and Hit:IsDescendantOf(player.Character)) then
 				Player = player;
 				break;
