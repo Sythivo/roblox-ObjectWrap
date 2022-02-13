@@ -13,7 +13,7 @@ local get_mapping = ({
 		local type = (self["@type"]);
 		if (type) then
 			if (type == ("property")) then
-				return (self.get());
+				return (self:get());
 			elseif (type == ("signal")) then
 				return (self);
 			end;
@@ -27,7 +27,7 @@ local set_mapping = ({
 		local type = (self["@type"]);
 		if (type) then
 			if (type == ("property")) then
-				return (self.set(...));
+				return (self:set(...));
 			elseif (type == ("signal")) then
 				error(("cannot set <%s>%s"):format(type, index))
 			end;
@@ -103,6 +103,10 @@ function merge(...)
 	local merged = ({});
 	for _, table in pairs({...}) do
 		for i, v in pairs(table) do
+			if (typeof(v) == "table") then
+				merged[i] = merge(v);
+				continue;
+			end
 			merged[i] = v;
 		end
 	end
