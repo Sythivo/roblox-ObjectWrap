@@ -1,6 +1,6 @@
 {
   "package_name": "ObjectWrap",
-  "description": "Wrapping Roblox Tool",
+  "description": "Roblox Instace Wrap Module",
   "version": "<tag>",
   "author": "Sythivo",
   "exclude": [
