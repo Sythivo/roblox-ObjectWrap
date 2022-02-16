@@ -1,0 +1,12 @@
+{
+  "package_name": "ObjectWrap",
+  "description": "Wrapping Roblox Tool",
+  "version": "<tag>",
+  "author": "Sythivo",
+  "exclude": [
+    "make/types.lua"
+  ],
+  "modules": [
+    "*"
+  ]
+}
